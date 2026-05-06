@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Ryoikitenkai — Voice-Driven App Generator</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div id="auth" class="auth-screen" hidden>
+      <div class="auth-card">
+        <h1>Ryoikitenkai</h1>
+        <p class="muted">Voice-driven full-stack app generator</p>
+
+        <div class="tabs">
+          <button class="tab active" data-tab="login">Log in</button>
+          <button class="tab" data-tab="signup">Sign up</button>
+        </div>
+
+        <form id="auth-form">
+          <label>
+            Email
+            <input
+              type="email"
+              name="email"
+              required
+              autocomplete="email"
+              placeholder="you@example.com"
+            />
+          </label>
+          <label>
+            Password
+            <input
+              type="password"
+              name="password"
+              required
+              minlength="6"
+              autocomplete="current-password"
+              placeholder="At least 6 characters"
+            />
+          </label>
+          <button type="submit" class="primary" id="auth-submit">
+            Log in
+          </button>
+          <div id="auth-error" class="error" hidden></div>
+        </form>
+      </div>
+    </div>
+
+    <div id="app" class="app-shell" hidden>
+      <aside class="sidebar">
+        <div class="sidebar-header">
+          <div class="brand">Ryoikitenkai</div>
+          <button id="new-project" class="ghost" title="New project">+ New</button>
+        </div>
+        <ul id="project-list" class="project-list"></ul>
+        <div class="sidebar-footer">
+          <span id="user-email" class="muted"></span>
+          <button id="logout" class="ghost">Log out</button>
+        </div>
+      </aside>
+
+      <main class="main">
+        <header class="topbar">
+          <input
+            id="project-name"
+            class="project-name"
+            placeholder="Untitled project"
+          />
+          <div class="topbar-actions">
+            <span id="status-badge" class="badge idle">Idle</span>
+            <button id="download-btn" class="primary" disabled>
+              Download ZIP
+            </button>
+          </div>
+        </header>
+
+        <section class="workspace">
+          <div class="chat-pane">
+            <div id="messages" class="messages"></div>
+            <form id="chat-form" class="chat-form">
+              <div class="voice-controls">
+                <button
+                  id="mic-btn"
+                  type="button"
+                  class="voice-btn"
+                  title="Hold mic / click to toggle"
+                >
+                  <span class="dot"></span> Mic
+                </button>
+                <button
+                  id="mute-btn"
+                  type="button"
+                  class="voice-btn"
+                  title="Mute mic so the AI works without listening"
+                >
+                  Mute
+                </button>
+                <button
+                  id="clap-btn"
+                  type="button"
+                  class="voice-btn"
+                  title="Toggle clap-to-wake (clap twice to start listening)"
+                >
+                  Clap-wake: off
+                </button>
+                <button
+                  id="tts-btn"
+                  type="button"
+                  class="voice-btn active"
+                  title="Toggle TTS (AI speaking aloud)"
+                >
+                  TTS: on
+                </button>
+              </div>
+              <div class="chat-input-row">
+                <textarea
+                  id="chat-input"
+                  rows="2"
+                  placeholder="Describe the app you want, or type a follow-up..."
+                ></textarea>
+                <button type="submit" id="send-btn" class="primary">
+                  Send
+                </button>
+              </div>
+              <div id="voice-hint" class="muted small"></div>
+            </form>
+          </div>
+
+          <div class="files-pane">
+            <h3>Generated files</h3>
+            <ul id="file-list" class="file-list"></ul>
+            <pre id="file-preview" class="file-preview"></pre>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="/js/voice.js" type="module"></script>
+    <script src="/js/clap.js" type="module"></script>
+    <script src="/js/interrupt.js" type="module"></script>
+    <script src="/js/app.js" type="module"></script>
+  </body>
+</html>
